@@ -1,4 +1,4 @@
 # practicaphp
 Se realizara un formulario web conectado a una base de datos
-index.php
+https://heflaruz.github.io/practicaphp.github.io/main/index.php
 
