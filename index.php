@@ -27,7 +27,7 @@
     <div class="container">
       <?php //no se ha enviado el formulario aun
       if (!isset($_POST['submit'])) { ?>
-        <form action="" method="post">
+        <form action="" id="formulario" method="post">
           <div class="rowo">
               <div class="col-25">
                 <label>Username:</label>
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="rowo">
-            <input type="submit" value="submit" name="submit">
+            <input type="submit" value="submit" name="submit" id="enviar">
           </div>     
         </form>
       <?php
@@ -64,12 +64,13 @@
   <div class="column side">
   </div>
 </div>
+<script src="script.js"></script>
 <div class="footer">
     <?php
     echo "Henry Fabricio Plasencia De La Cuz  ". date("d/m/Y") ;
     ?>
 
-  </div>
+</div>
   
 </body>
 </html>
