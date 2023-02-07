@@ -4,7 +4,7 @@
   <title>listado de animales</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
 
@@ -24,24 +24,31 @@
   
   <div class="column middle">
     <!--<div class="parriva"></div>-->
-    <table>
+    <table class="listabla">
         <tr>
             <th>
                 Listado de Peludines
 
             </th>
         </tr>
+          <?php
+          $user = "root";
+          $password = "alumno";
+          $database = "peludines";
+          $table = "animals";
+          try {
+            $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+            foreach($db->query("SELECT name FROM $table") as $row) {
+              echo "<tr>"."<td>" ."<a href='#' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='#' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
+            }
+          } catch (PDOException $e) {
+              print "Error!: " . $e->getMessage() . "<br/>";
+              die();
+          }
+          ?>
         <tr>
-            <td>
-
-            </td>
-            <td>
-                <a href="#">Link</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-            <a href="#">Crear nuevo animal</a>
+            <td class="colapsar">
+            <a href="#" class="creacion">Crear nuevo animal</a>
             </td>
         </tr>
     </table>

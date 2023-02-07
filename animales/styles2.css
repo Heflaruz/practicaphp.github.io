@@ -4,7 +4,7 @@
 
   body {
     margin: 0;
-    background-color: rgb(86, 57, 102);
+    background-color: rgb(132, 98, 150);
     color:white;
   }
 
@@ -73,65 +73,36 @@
 .footer {
     padding: 10px;
     text-align: center;
-  }
-/*formulario*/
-input[type=text] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  input[type=password] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  
-  label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-  }
-  
-  input[type=submit] {
-    background-color: #3f1583;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #455aa0;
-  }
-  
-  .container {
-    border-radius: 5px;
-    background-color: #582754;
-    padding: 20px;
-  }
-  
-  .col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-  }
-  
-  .col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-  }
-  
+  } 
   /* Clear floats after the columns */
   .rowo:after {
     content: "";
     display: table;
     clear: both;
+  }
+  /*tabla*/
+  .listabla{
+    width: 100%;
+    margin:  0 auto;
+  }
+  th {
+    text-align: center;
+  }
+  .colapsar {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .creacion {
+    background-color: #54326d;
+    border: 2px solid #22142c;
+    width: 60%;
+    text-align: center;
+    padding: 2% 8% 2% 8%;
+    border-radius: 5px;
+    color: #f2f2f2;
+    text-decoration: none;
+    font-size: 120%;
   }
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
@@ -141,3 +112,13 @@ input[type=text] {
     }
   }
   /*cosas de estilo*/
+  a.brojo { 
+    padding: 1% 6% 1% 6%;
+    background: rgb(109, 1, 1);
+    border-radius: 5px;
+    color: #f2f2f2;
+    text-decoration: none;
+  }
+  a.banimal{
+    color: #f2f2f2;
+  }
