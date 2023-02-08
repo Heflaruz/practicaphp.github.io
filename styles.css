@@ -17,7 +17,7 @@
   /* Style the top navigation bar */
   .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #54326d;
   }
 
   /* Style the topnav links */
@@ -51,6 +51,7 @@
   .column.middle {
     width: 40%;
     padding: 0% 6% 0% 6%;
+    margin-top: 4%;
     /*display: flex;
     align-items: center;
     justify-content: center;*/
@@ -71,7 +72,7 @@
   }
   /* Style the footer */
 .footer {
-    padding: 10px;
+    padding: 10%;
     text-align: center;
   }
 /*formulario*/
@@ -103,6 +104,7 @@ input[type=text] {
     border-radius: 4px;
     cursor: pointer;
     float: right;
+    margin-top: 5px;
   }
   
   input[type=submit]:hover {
@@ -137,7 +139,7 @@ input[type=text] {
   @media screen and (max-width: 600px) {
     .col-25, .col-75, input[type=submit] {
       width: 100%;
-      margin-top: 0;
+      margin-top: 1%;
     }
   }
   /*cosas de estilo*/
