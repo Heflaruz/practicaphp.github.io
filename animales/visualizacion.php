@@ -23,22 +23,56 @@
   </div>
   
   <div class="column middle2">
+    <?php
+    $user = "root";
+    $password = "alumno";
+    $database = "peludines";
+    $table = "animals";
+    $con = new mysqli("localhost",$user,$password,$database);
+    if ($con->connect_error){
+      die("Error de conexion". $con->connect_error);
+    }
+    ?>
     <div class="titu">
+      <?php
+       foreach($con->query("SELECT * FROM $table WHERE id={$_GET['id']}") as $row) {
+        echo "<h1>"."Animal:{$row['name']}"."</h1>"; 
+      ?>
 
     </div>
 
   <div class="fotos">
-    <img src="../imagenes/Moka.jpg" alt="mascota">
+    <?php
+      $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
+      foreach ($imagenes as $imagen) {
+          echo '<img src="'.$imagen.'" alt="mascota" />';
+      }
+    ?>
   </div>
   <div class="textos">
-
+    <?php
+      echo "<p>Nombre:"."<b>{$row['name']}</b>"."</p>";
+      echo "<p>Especie:"."<b>{$row['type']}</b>"."</p>";
+      echo "<p>Fecha inserción:"."<b>{$row['created']}</b>"."</p>";
+      $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
+      foreach ($imagenes as $imagen) {
+          $info = getimagesize($imagen);
+          $timagen=$info['mime'];
+          $peso=filesize($imagen);
+          $pkb=round($peso/1024);
+          echo "Imagen:"."<b>".$row['name'].$row['id'].".".pathinfo($imagen, PATHINFO_EXTENSION)."</b>". " ({$pkb} Kb)";
+          
+      }
+      
+    ?>
   </div>
   <div class="contvolv">
     <a href="listado.php" class="creacion">Volver</a>
   </div>
-
-
-
+  <?php
+   }
+  $con->close();
+  ?>
   </div>
 
   
