@@ -44,7 +44,7 @@
             die("Error de conexion". $con->connect_error);
           }
           foreach($con->query("SELECT name FROM $table") as $row) {
-              echo "<tr>"."<td>" ."<a href='visualizacion.php?id={$row['name']}' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='listado.php?id={$row['name']}' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
+              echo "<tr>"."<td>" ."<a href='visualizacion.php?id={$row['id']}' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='listado.php?id={$row['id']}' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
           }
           ?>
         <tfoot class="agpaba">
