@@ -39,14 +39,12 @@
           $password = "alumno";
           $database = "peludines";
           $table = "animals";
-          try {
-            $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
-            foreach($db->query("SELECT name FROM $table") as $row) {
-              echo "<tr>"."<td>" ."<a href='visualizacion.php' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='#' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
-            }
-          } catch (PDOException $e) {
-              print "Error!: " . $e->getMessage() . "<br/>";
-              die();
+          $con = new mysqli("localhost",$user,$password,$database);
+          if ($con->connect_error){
+            die("Error de conexion". $con->connect_error);
+          }
+          foreach($con->query("SELECT name FROM $table") as $row) {
+              echo "<tr>"."<td>" ."<a href='visualizacion.php?id={$row['name']}' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='listado.php?id={$row['name']}' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
           }
           ?>
         <tfoot class="agpaba">
@@ -58,6 +56,9 @@
         </tfoot>
     </table>
   </div>
+  <?php
+  $con->close();
+  ?>
 
   
   <div class="column side">
