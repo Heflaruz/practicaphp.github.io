@@ -9,7 +9,7 @@
 <body>
 
 <div class="header">
-  <h1>Alta</h1>
+  <h1>Alta de nuevo animal</h1>
 </div>
 
 <div class="topnav">
@@ -22,7 +22,58 @@
   <div class="column side">
   </div>
   
-  <div class="column middle">
+  <div class="column middle2">
+
+  <div class="container2">
+      <?php //no se ha enviado el formulario aun
+      if (!isset($_POST['Crear'])) { ?>
+        <form action="" id="formulario" method="post" enctype="multipart/form-data">
+          <div class="rowo">
+              <div class="col-25">
+                <label>Nombre </label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="name" name="name" placeholder="nombre de animal">
+              </div>
+          </div>
+          <div class="rowo">
+            <div class="col-25">
+              <label>Especie </label>
+            </div>
+            <div class="col-75">
+              <select id="type" name="type">
+                <option value="gato">gato</option>
+                <option value="perro">perro</option>
+               </select>
+            </div>
+          </div>
+          <div class="rowo">
+            <div class="col-25">
+              <label>Foto </label>
+            </div>
+            <div class="col-75">
+            <input type="file" id="imagenes" name="imagenes">
+            </div>
+          </div>
+          <div class="rowo1">
+            <input type="submit" value="Crear" name="Crear" id="enviar">
+          </div>     
+        </form>
+      <?php
+          }else{
+            
+              //formulario enviado
+              echo "nada";
+              echo"<br>";
+              echo var_dump($_POST);
+              echo"<br>";
+              var_dump($_FILES["imagenes"]);
+              echo"<br>";
+              $sqli="INSERT INTO peludines.animals (`name`, `created`, `type`) VALUES ({$_POST['name']}, now(),{$_POST['type']});";
+              echo $sqli;
+            }
+       ?>
+    </div>
 
 
 

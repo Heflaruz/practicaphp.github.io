@@ -29,13 +29,16 @@
     $database = "peludines";
     $table = "animals";
     $con = new mysqli("localhost",$user,$password,$database);
+    $sql ="SELECT * FROM $table WHERE id={$_GET['id']}";
+    $resultado = $con->query($sql);
     if ($con->connect_error){
       die("Error de conexion". $con->connect_error);
     }
+      if ($resultado->num_rows > 0) {
     ?>
     <div class="titu">
       <?php
-       foreach($con->query("SELECT * FROM $table WHERE id={$_GET['id']}") as $row) {
+       foreach($resultado as $row) {
         echo "<h1>"."Animal:{$row['name']}"."</h1>"; 
       ?>
 
@@ -43,10 +46,10 @@
 
   <div class="fotos">
     <?php
-      $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
-      foreach ($imagenes as $imagen) {
-          echo '<img src="'.$imagen.'" alt="mascota" />';
-      }
+        $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
+        foreach ($imagenes as $imagen) {
+            echo '<img src="'.$imagen.'" alt="mascota" />';
+        }
     ?>
   </div>
   <div class="textos">
@@ -54,15 +57,15 @@
       echo "<p>Nombre:"."<b>{$row['name']}</b>"."</p>";
       echo "<p>Especie:"."<b>{$row['type']}</b>"."</p>";
       echo "<p>Fecha inserción:"."<b>{$row['created']}</b>"."</p>";
-      $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
-      foreach ($imagenes as $imagen) {
-          $info = getimagesize($imagen);
-          $timagen=$info['mime'];
-          $peso=filesize($imagen);
-          $pkb=round($peso/1024);
-          echo "Imagen:"."<b>".$row['name'].$row['id'].".".pathinfo($imagen, PATHINFO_EXTENSION)."</b>". " ({$pkb} Kb)";
-          
-      }
+        $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
+        foreach ($imagenes as $imagen) {
+            $info = getimagesize($imagen);
+            $timagen=$info['mime'];
+            $peso=filesize($imagen);
+            $pkb=round($peso/1024);
+            echo "Imagen:"."<b>".$row['name'].$row['id'].".".pathinfo($imagen, PATHINFO_EXTENSION)."</b>". " ({$pkb} Kb)";
+            
+        }
       
     ?>
   </div>
@@ -71,7 +74,6 @@
   </div>
   <?php
    }
-  $con->close();
   ?>
   </div>
 
@@ -81,6 +83,10 @@
 </div>
 <div class="footer">
     <?php
+     } else {
+      echo "Sin resultados";
+    }
+    $con->close();
     echo "Henry Fabricio Plasencia De La Cuz  ". date("d/m/Y") ;
     ?>
 

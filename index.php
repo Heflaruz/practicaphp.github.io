@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <title>LOGIN</title>
   <meta charset="utf-8">
@@ -23,14 +23,14 @@
   </div>
   
   <div class="column middle">
-    <!--<div class="parriva"></div>-->
     <div class="container">
       <?php //no se ha enviado el formulario aun
-      if (!isset($_POST['submit'])) { ?>
-        <form action="" id="formulario" method="post">
+      if (!isset($_POST['submit'])) { 
+      ?>
+        <form action="index.php" method="post" id="formulario">
           <div class="rowo">
               <div class="col-25">
-                <label>Username:</label>
+                <label>Username </label>
               </div>
               <div class="col-75">
                 <input type="text" id="username" name="username" placeholder="nombre de usuarios">
@@ -38,18 +38,19 @@
           </div>
           <div class="rowo">
             <div class="col-25">
-              <label>Password:</label>
+              <label>Password </label>
             </div>
             <div class="col-75">
               <input type="password" id="pwd" name="pwd" placeholder="tu contraseña">
             </div>
           </div>
           <div class="rowo">
-            <input type="submit" value="submit" name="submit" id="enviar">
+            <input type="submit" value="entrar" name="submit" id="submit">
+            <!--<button type="submit" id="submit" value="submit" name="submit">Entrar</button>-->
           </div>     
         </form>
       <?php
-          }else{
+       }else{
             
               //formulario enviado
               echo "<h1>LOGIN VALIDO</h1>";
