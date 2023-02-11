@@ -33,7 +33,7 @@
                 <label>Username </label>
               </div>
               <div class="col-75">
-                <input type="text" id="username" name="username" placeholder="nombre de usuarios">
+                <input type="text" id="username" name="username" placeholder="nombre de usuarios" maxlength="45">
               </div>
           </div>
           <div class="rowo">
@@ -41,7 +41,7 @@
               <label>Password </label>
             </div>
             <div class="col-75">
-              <input type="password" id="pwd" name="pwd" placeholder="tu contraseña">
+              <input type="password" id="pwd" name="pwd" placeholder="tu contraseña" maxlength="64">
             </div>
           </div>
           <div class="rowo">

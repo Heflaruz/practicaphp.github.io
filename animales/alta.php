@@ -26,8 +26,8 @@
 
   <div class="container2">
       <?php //no se ha enviado el formulario aun
-      if (!isset($_POST['Crear'])) { ?>
-        <form action="" id="formulario" method="post" enctype="multipart/form-data">
+      if (!isset($_POST['Crear'])&& !isset($_POST['type']) && !isset($_FILES["imagenes"])) { ?>
+        <form action="alta.php" id="formulario" method="post" enctype="multipart/form-data">
           <div class="rowo">
               <div class="col-25">
                 <label>Nombre </label>
@@ -61,16 +61,37 @@
         </form>
       <?php
           }else{
-            
               //formulario enviado
-              echo "nada";
-              echo"<br>";
-              echo var_dump($_POST);
-              echo"<br>";
-              var_dump($_FILES["imagenes"]);
-              echo"<br>";
-              $sqli="INSERT INTO peludines.animals (`name`, `created`, `type`) VALUES ({$_POST['name']}, now(),{$_POST['type']});";
-              echo $sqli;
+              //var_dump($_FILES["imagenes"]);
+              //echo"<br>";
+              $user = "root";
+              $password = "alumno";
+              $database = "peludines";
+              $table = "animals";
+              $fcrea = date("Y-m-d H:i:s"); 
+              $con = new mysqli("localhost",$user,$password,$database);
+              if ($con->connect_error){
+                          die("Error de conexion". $con->connect_error);
+              }
+              $name = $_POST['name'];
+              $type = $_POST['type'];
+              
+              $sql = "INSERT INTO animals (name, created, type) VALUES ('$name', '$fcrea', '$type')";
+              $result = mysqli_query($con,$sql);
+              
+              if($result){
+                  echo "Datos insertados correctamente";
+              } else {
+                  echo "Error al insertar los datos";
+              }
+                $sql ="SELECT id,name FROM $table";
+                $resultado = $con->query($sql);
+                foreach($resultado as $row) {
+                  $ima="{$row['name']}{$row['id']}";
+                }
+                echo $imaf="{$row['name']}{$row['id']}";
+
+                $con->close();
             }
        ?>
     </div>
