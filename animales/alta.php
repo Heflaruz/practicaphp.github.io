@@ -81,8 +81,10 @@
               
               if($result){
                   echo "Datos insertados correctamente";
+                  echo"<br>";
               } else {
                   echo "Error al insertar los datos";
+                  echo"<br>";
               }
                 $sql ="SELECT id,name FROM $table";
                 $resultado = $con->query($sql);
@@ -90,7 +92,21 @@
                   $ima="{$row['name']}{$row['id']}";
                 }
                 echo $imaf="{$row['name']}{$row['id']}";
-
+                if (substr($_FILES["imagenes"]["type"], 0, 5) == "image" and $_FILES["imagenes"]["size"] < 1024 * 200) {
+                    // Subimos la imagen
+                    // move_uploaded_file(desde, hasta);
+                    // move_uploaded_file(desde, hasta);
+                    $directorio = "../imagenes/";
+                    $fichero = explode(".", $_FILES["imagenes"]["name"]);
+                    $extension = end($fichero);
+                    $fichero = $directorio.$imaf.'.'.$extension;
+                  // Mover desde /tmp/phpBLABLA -> images/nombre_fichero.ext
+                    move_uploaded_file($_FILES["imagenes"]["tmp_name"], $fichero);
+                    echo "<img src='$fichero' style='width: 300px;'>";
+                } else {  // Sino, da un error
+                    echo "Imagen incorrecta"."<br>";
+                    echo "<a href='listado.php'>Volver</a>";
+                }
                 $con->close();
             }
        ?>

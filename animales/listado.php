@@ -49,7 +49,7 @@
           if ($resultado->num_rows > 0) {
             // Recorremos cada fila y la mostramos en una tabla
           foreach($resultado as $row) {
-              echo "<tr>"."<td>" ."<a href='visualizacion.php?id={$row['id']}' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='listado.php?id={$row['id']}' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
+              echo "<tr>"."<td>" ."<a href='visualizacion.php?id={$row['id']}' class='banimal'>".$row['name']."</a>". "</td>" ."<td class='entre'>"."</td>"."<td>"."<a href='listado.php?id={$row['id']}&name={$row['name']}' class='brojo'>Borrar"."</a>"."</td>"."</tr>";
           }
           ?>
         </tbody>
@@ -69,6 +69,10 @@
        echo "Borrar la clase con id: " . $_GET['id'] . "<br>";
        $sqld = "DELETE FROM $table WHERE id=" . $_GET['id'] . ";";
        echo $sqld;
+       $imagenes = glob("../imagenes/{$_GET['name']}{$_GET['id']}.*");
+        if (file_exists($imagenes)) {
+          unlink($imagenes);
+      }
        $con->query($sqld);
        header("Location:listado.php");
        
