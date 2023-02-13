@@ -51,11 +51,29 @@
         </form>
       <?php
        }else{
-            
               //formulario enviado
               echo "<h1>LOGIN VALIDO</h1>";
               echo "<p>"."Usuario: {$_POST['username']}"."</p>";
               echo "<p>"."contraseña: " . $_POST['pwd'] ."</p>";
+              require("conexion.php");
+              if(!empty($_POST["submit"])){
+                if(empty($_POST["username"])and empty($_POST["pwd"])){
+                  echo "<p>";
+                  echo 'HACE FALTA INGRESAR UN USUARIO Y CONTRASEÑA';
+                  echo "</p>";
+                } else{
+                    $usuario=$_POST["username"];
+                    $contra=$_POST["pwd"];
+                    $sql=$con->query("select * from peludines.users where name='$usuario' and password='$contra'");
+                  if ($datos=$sql->fetch_object()){
+                    header("location:animales/listado.php");
+                  } else{
+                  echo "<p>";
+                  echo 'EL USUARIO O LA CONTRASEÑA SON INCORRECTOS';
+                  echo "</p>";
+                    }
+                  }
+              }
             }
        ?>
     </div>
