@@ -1,3 +1,6 @@
+<?php
+require("../compsesion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,23 +32,15 @@
       <thead>
         <tr>
             <th>
-                
-
+              
             </th>
         </tr>
       </thead>
       <tbody>
           <?php
-          $user = "root";
-          $password = "alumno";
-          $database = "peludines";
-          $table = "animals";
-          $con = new mysqli("localhost",$user,$password,$database);
+          require("../conexion.php");
           $sql ="SELECT id,name FROM $table";
           $resultado = $con->query($sql);
-          if ($con->connect_error){
-            die("Error de conexion". $con->connect_error);
-          }
           if ($resultado->num_rows > 0) {
             // Recorremos cada fila y la mostramos en una tabla
           foreach($resultado as $row) {
@@ -78,6 +73,7 @@
       }
         }
        $con->query($sqld);
+       $con->close();
        header("Location:listado.php");
        
     }
@@ -86,10 +82,11 @@
 </div>
 <div class="footer">
     <?php
+      $con->close();
       } else {
         echo "Sin resultados";
+        $con->close();
       }
-      $con->close();
       echo "Henry Fabricio Plasencia De La Cuz  ". date("d/m/Y") ;
     ?>
 

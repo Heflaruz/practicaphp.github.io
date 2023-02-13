@@ -1,3 +1,6 @@
+<?php
+require("../compsesion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,16 +27,9 @@
   
   <div class="column middle2">
     <?php
-    $user = "root";
-    $password = "alumno";
-    $database = "peludines";
-    $table = "animals";
-    $con = new mysqli("localhost",$user,$password,$database);
+    require("../conexion.php");
     $sql ="SELECT * FROM $table WHERE id={$_GET['id']}";
     $resultado = $con->query($sql);
-    if ($con->connect_error){
-      die("Error de conexion". $con->connect_error);
-    }
       if ($resultado->num_rows > 0) {
     ?>
     <div class="titu">
@@ -83,10 +79,11 @@
 </div>
 <div class="footer">
     <?php
+      $con->close();
      } else {
       echo "Sin resultados";
+      $con->close();
     }
-    $con->close();
     echo "Henry Fabricio Plasencia De La Cuz  ". date("d/m/Y") ;
     ?>
 

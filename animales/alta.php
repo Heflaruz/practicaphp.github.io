@@ -1,3 +1,6 @@
+<?php
+require("../compsesion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -44,6 +47,7 @@
               <select id="type" name="type">
                 <option value="gato">gato</option>
                 <option value="perro">perro</option>
+                <option value="" selected>selecciona un tipo de especie</option>
                </select>
             </div>
           </div>
@@ -62,54 +66,42 @@
       <?php
           }else{
               //formulario enviado
-              //var_dump($_FILES["imagenes"]);
-              //echo"<br>";
-              $user = "root";
-              $password = "alumno";
-              $database = "peludines";
-              $table = "animals";
-              $fcrea = date("Y-m-d H:i:s"); 
-              $con = new mysqli("localhost",$user,$password,$database);
-              if ($con->connect_error){
-                          die("Error de conexion". $con->connect_error);
-              }
-              $name = $_POST['name'];
-              $type = $_POST['type'];
-              
-              $sqli = "INSERT INTO animals (name, created, type) VALUES ('$name', '$fcrea', '$type')";
-              $result = mysqli_query($con,$sqli);
-              
-              if($result){
-                  echo "Datos insertados correctamente";
-                  echo"<br>";
-              } else {
-                  echo "Error al insertar los datos";
-                  echo"<br>";
-              }
-                $sql ="SELECT id,name FROM $table";
-                $resultado = $con->query($sql);
-                foreach($resultado as $row) {
-                  $ima="{$row['name']}{$row['id']}";
-                }
-                echo $imaf="{$row['name']}{$row['id']}";
+                require("../conexion.php");
+                $fcrea = date("Y-m-d H:i:s"); 
+                $name = $_POST['name'];
+                $type = $_POST['type'];
                 if (substr($_FILES["imagenes"]["type"], 0, 5) == "image" and $_FILES["imagenes"]["size"] < 1024 * 200) {
                     // Subimos la imagen
-                    // move_uploaded_file(desde, hasta);
-                    // move_uploaded_file(desde, hasta);
+                    $sqli = "INSERT INTO animals (name, created, type) VALUES ('$name', '$fcrea', '$type')";
+                    $result = mysqli_query($con,$sqli);
+                    if($result){
+                        echo "Datos insertados correctamente";
+                        echo"<br>";
+                    } else {
+                        echo "Error al insertar los datos";
+                        echo"<br>";
+                    }
+                     $sql ="SELECT id,name FROM $table";
+                      $resultado = $con->query($sql);
+                      foreach($resultado as $row) {
+                        $ima="{$row['name']}{$row['id']}";
+                      }
+                      echo $imaf="{$row['name']}{$row['id']}";
                     $directorio = "../imagenes/";
                     $fichero = explode(".", $_FILES["imagenes"]["name"]);
                     $extension = end($fichero);
                     $fichero = $directorio.$imaf.'.'.$extension;
+                    // move_uploaded_file(desde, hasta);
                   // Mover desde /tmp/phpBLABLA -> images/nombre_fichero.ext
                     move_uploaded_file($_FILES["imagenes"]["tmp_name"], $fichero);
-
-                    echo "<img src='$fichero' style='width: 300px;'>";
+                    //echo "<img src='$fichero' style='width: 300px;'>";
                 } else {  // Sino, da un error
                     echo "Imagen incorrecta"."<br>";
                     echo "<a href='listado.php'>Volver</a>";
                 }
                 $con->close();
                 //header("Location:listado.php");
+                //die();
             }
        ?>
     </div>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -46,26 +49,25 @@
           </div>
           <div class="rowo">
             <input type="submit" value="entrar" name="submit" id="submit">
-            <!--<button type="submit" id="submit" value="submit" name="submit">Entrar</button>-->
           </div>     
         </form>
       <?php
        }else{
               //formulario enviado
-              echo "<h1>LOGIN VALIDO</h1>";
-              echo "<p>"."Usuario: {$_POST['username']}"."</p>";
-              echo "<p>"."contraseña: " . $_POST['pwd'] ."</p>";
               require("conexion.php");
               if(!empty($_POST["submit"])){
                 if(empty($_POST["username"])and empty($_POST["pwd"])){
                   echo "<p>";
                   echo 'HACE FALTA INGRESAR UN USUARIO Y CONTRASEÑA';
+                  //header("location:animales/listado.php");
                   echo "</p>";
                 } else{
                     $usuario=$_POST["username"];
                     $contra=$_POST["pwd"];
                     $sql=$con->query("select * from peludines.users where name='$usuario' and password='$contra'");
                   if ($datos=$sql->fetch_object()){
+                    $_SESSION['usuario']=$usuario;
+                    $con->close();
                     header("location:animales/listado.php");
                   } else{
                   echo "<p>";
