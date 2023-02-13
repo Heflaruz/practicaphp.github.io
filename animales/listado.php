@@ -69,10 +69,14 @@
        echo "Borrar la clase con id: " . $_GET['id'] . "<br>";
        $sqld = "DELETE FROM $table WHERE id=" . $_GET['id'] . ";";
        echo $sqld;
+       //busca dentro de la carpeta "imagenes", los archivos cuyo nombre coincida con el valor de la variable $name y $id, y luego borra los archivos encontrados.
        $imagenes = glob("../imagenes/{$_GET['name']}{$_GET['id']}.*");
-        if (file_exists($imagenes)) {
-          unlink($imagenes);
+       foreach ($imagenes as $imagen) {
+        echo $imagen;
+        if (isset($imagen) && file_exists($imagen)) {
+          unlink($imagen);
       }
+        }
        $con->query($sqld);
        header("Location:listado.php");
        

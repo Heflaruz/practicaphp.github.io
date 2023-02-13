@@ -76,8 +76,8 @@
               $name = $_POST['name'];
               $type = $_POST['type'];
               
-              $sql = "INSERT INTO animals (name, created, type) VALUES ('$name', '$fcrea', '$type')";
-              $result = mysqli_query($con,$sql);
+              $sqli = "INSERT INTO animals (name, created, type) VALUES ('$name', '$fcrea', '$type')";
+              $result = mysqli_query($con,$sqli);
               
               if($result){
                   echo "Datos insertados correctamente";
@@ -102,12 +102,14 @@
                     $fichero = $directorio.$imaf.'.'.$extension;
                   // Mover desde /tmp/phpBLABLA -> images/nombre_fichero.ext
                     move_uploaded_file($_FILES["imagenes"]["tmp_name"], $fichero);
+
                     echo "<img src='$fichero' style='width: 300px;'>";
                 } else {  // Sino, da un error
                     echo "Imagen incorrecta"."<br>";
                     echo "<a href='listado.php'>Volver</a>";
                 }
                 $con->close();
+                //header("Location:listado.php");
             }
        ?>
     </div>
