@@ -16,13 +16,29 @@ session_start();
 </div>
 
 <div class="topnav">
-  <a href="#">Link</a>
+  <a href="index.php?cierra=cerrar">LOG OUT</a>
   <a href="#">Link</a>
   <a href="#">Link</a>
 </div>
 
 <div class="row">
   <div class="column side">
+    <?php
+    if(isset($_GET["cierra"])){
+      session_unset();
+      session_destroy();
+    } else {
+      //si ocurre algo aqui verificamos que exista una sesion iniciada
+      if(isset($_SESSION)){
+        //Recuperamos los valores de la sesion
+        $variables_sesion = $_SESSION;
+        //Aqui mostrarmos
+        foreach($variables_sesion as $key=>$value){
+            echo '<p>'.$key.' : '.$value.'</p>';
+        }
+      }
+    }
+    ?>
   </div>
   
   <div class="column middle">
@@ -39,6 +55,15 @@ session_start();
                 <input type="text" id="username" name="username" placeholder="nombre de usuarios" maxlength="45">
               </div>
           </div>
+          <?php
+          if(isset($_GET['su'])){
+            echo "<div class='rowo'>";
+              echo "<p>";
+                echo "INGRESA EL NOMBRE";
+              echo "</p>";
+            echo "</div>";
+          }
+          ?>
           <div class="rowo">
             <div class="col-25">
               <label>Password </label>
@@ -47,6 +72,15 @@ session_start();
               <input type="password" id="pwd" name="pwd" placeholder="tu contraseña" maxlength="64">
             </div>
           </div>
+          <?php
+          if(isset($_GET['co'])){
+            echo "<div class='rowo'>";
+              echo "<p>";
+                echo "INGRESA LA CONTRASEÑA";
+              echo "</p>";
+            echo "</div>";
+          }
+          ?>
           <div class="rowo">
             <input type="submit" value="entrar" name="submit" id="submit">
           </div>     
@@ -70,9 +104,10 @@ session_start();
                     $con->close();
                     header("location:animales/listado.php");
                   } else{
-                  echo "<p>";
-                  echo 'EL USUARIO O LA CONTRASEÑA SON INCORRECTOS';
-                  echo "</p>";
+                      echo "<p>";
+                      echo 'EL USUARIO O LA CONTRASEÑA SON INCORRECTOS';
+                      header("location:index.php?su=incorre&co=inco");
+                      echo "</p>";
                     }
                   }
               }

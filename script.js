@@ -6,6 +6,7 @@ if(formulario !== null){
     formulario.onsubmit = function(){
         if(formulario.username.value == "" || formulario.pwd.value == ""){
             usuario.style.border = '1px solid red';
+            alert("no ingreso datos")
             contra.style.border = '1px solid red';
             return false;
         }else{

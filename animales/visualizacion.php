@@ -16,7 +16,7 @@ require("../compsesion.php");
 </div>
 
 <div class="topnav">
-  <a href="#">Link</a>
+  <a href="../index.php?cierra=cerrar">LOG OUT</a>
   <a href="#">Link</a>
   <a href="#">Link</a>
 </div>
