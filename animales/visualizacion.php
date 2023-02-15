@@ -17,8 +17,8 @@ require("../compsesion.php");
 
 <div class="topnav">
   <a href="../index.php?cierra=cerrar">LOG OUT</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
+  <a href="listado.php">listado</a>
+  <a href="alta.php">alta</a>
 </div>
 
 <div class="row">
@@ -28,12 +28,17 @@ require("../compsesion.php");
   <div class="column middle2">
     <?php
     require("../conexion.php");
-    $sql ="SELECT * FROM $table WHERE id={$_GET['id']}";
-    $resultado = $con->query($sql);
-      if ($resultado->num_rows > 0) {
+    $identificate=$_GET['id'];
+    //por el medio de pasar la variable $_GET['id'] para identificar el animal,conecto la web a la base de datos y verifico si esta da resultados o no
+    $sql= $con->prepare("SELECT * FROM $table WHERE id=?");
+    $sql->bind_param('i',$identificate);
+    $sql->execute();
+    $resultado = $sql->get_result();
+    if ($resultado->num_rows > 0) {
     ?>
     <div class="titu">
       <?php
+      //busco el nombre del animal asociado al id
        foreach($resultado as $row) {
         echo "<h1>"."Animal:{$row['name']}"."</h1>"; 
       ?>
@@ -42,6 +47,7 @@ require("../compsesion.php");
 
   <div class="fotos">
     <?php
+        //busca dentro de la carpeta "imagenes", los archivos cuyo nombre coincida con el valor de la variable $_GET['name'] y $_GET['id'],para asi mostrarlos en la web.
         $imagenes = glob("../imagenes/{$row['name']}{$row['id']}.*");
         foreach ($imagenes as $imagen) {
             echo '<img src="'.$imagen.'" alt="mascota" />';
@@ -50,6 +56,7 @@ require("../compsesion.php");
   </div>
   <div class="textos">
     <?php
+    //mostrar por pantalla datos del animal y de la imagen asociada a este
       echo "<p>Nombre:"."<b>{$row['name']}</b>"."</p>";
       echo "<p>Especie:"."<b>{$row['type']}</b>"."</p>";
       echo "<p>Fecha inserción:"."<b>{$row['created']}</b>"."</p>";
@@ -82,6 +89,7 @@ require("../compsesion.php");
       $con->close();
      } else {
       echo "Sin resultados";
+      echo "<br>";
       $con->close();
     }
     echo "Henry Fabricio Plasencia De La Cuz  ". date("d/m/Y") ;

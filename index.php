@@ -17,8 +17,8 @@ session_start();
 
 <div class="topnav">
   <a href="index.php?cierra=cerrar">LOG OUT</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
+  <a href="animales/listado.php">listado</a>
+  <a href="animales/alta.php">alta</a>
 </div>
 
 <div class="row">
@@ -28,11 +28,11 @@ session_start();
       session_unset();
       session_destroy();
     } else {
-      //si ocurre algo aqui verificamos que exista una sesion iniciada
+      //si ocurre algo raro aqui verificamos que exista una sesion iniciada
       if(isset($_SESSION)){
         //Recuperamos los valores de la sesion
         $variables_sesion = $_SESSION;
-        //Aqui mostrarmos
+        //Aqui mostrarmos las claves y volores de las variables de sesion
         foreach($variables_sesion as $key=>$value){
             echo '<p>'.$key.' : '.$value.'</p>';
         }
@@ -93,13 +93,15 @@ session_start();
                 if(empty($_POST["username"])and empty($_POST["pwd"])){
                   echo "<p>";
                   echo 'HACE FALTA INGRESAR UN USUARIO Y CONTRASEÑA';
-                  //header("location:animales/listado.php");
                   echo "</p>";
                 } else{
                     $usuario=$_POST["username"];
                     $contra=$_POST["pwd"];
-                    $sql=$con->query("select * from peludines.users where name='$usuario' and password='$contra'");
-                  if ($datos=$sql->fetch_object()){
+                    //buscaremos si los datos introducidos por formulario coinciden su usuario y contraseña con los introducidos en la base de datos
+                    $sql = $con->prepare("SELECT * FROM peludines.users WHERE name=? and password=?");
+                    $sql->bind_param('ss',$usuario,$contra);
+                    $sql->execute();
+                  if ($datos=$sql->get_result()->fetch_object()){
                     $_SESSION['usuario']=$usuario;
                     $con->close();
                     header("location:animales/listado.php");

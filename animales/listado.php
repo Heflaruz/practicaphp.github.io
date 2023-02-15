@@ -17,9 +17,8 @@ require("../compsesion.php");
 
 <div class="topnav">
   <a href="../index.php?cierra=cerrar">LOG OUT</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
-  <a href="#">Link</a>
+  <a href="listado.php">listado</a>
+  <a href="alta.php">alta</a>
 </div>
 
 <div class="row">
@@ -27,7 +26,6 @@ require("../compsesion.php");
   </div>
   
   <div class="column middle">
-    <!--<div class="parriva"></div>-->
     <table class="listabla">
       <thead>
         <tr>
@@ -61,10 +59,10 @@ require("../compsesion.php");
     <?php
     if (isset($_GET['id'])){
        echo "<p>Historial de borrado</p>";
-       echo "Borrar la clase con id: " . $_GET['id'] . "<br>";
-       $sqld = "DELETE FROM $table WHERE id=" . $_GET['id'] . ";";
-       echo $sqld;
-       //busca dentro de la carpeta "imagenes", los archivos cuyo nombre coincida con el valor de la variable $name y $id, y luego borra los archivos encontrados.
+       $identifica = $_GET['id'];
+       $sqld = $con->prepare("DELETE FROM $table WHERE id=?;");
+       $sqld->bind_param('i',$identifica);
+       //busca dentro de la carpeta "imagenes", los archivos cuyo nombre coincida con el valor de la variable $_GET['name'] y $_GET['id'], y luego borra los archivos encontrados.
        $imagenes = glob("../imagenes/{$_GET['name']}{$_GET['id']}.*");
        foreach ($imagenes as $imagen) {
         echo $imagen;
@@ -72,7 +70,7 @@ require("../compsesion.php");
           unlink($imagen);
       }
         }
-       $con->query($sqld);
+       $sqld->execute();
        $con->close();
        header("Location:listado.php");
        
