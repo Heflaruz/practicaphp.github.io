@@ -18,6 +18,10 @@ Para instalar esta web, siga los siguientes pasos:
 1. Clone el repositorio en su servidor.
 2. Cree una base de datos en su servidor de base de datos.
 3. Importe el archivo SQL
+### NOTA
+Si creaste prebiamente la tabla de animals realizar un ejecutarle la sentencia TRUNCATE TABLE animals;
+Para que haci los nombres de las imagenes coincida con cada uno de los animales en la BDs;
+
 
 ## Explicación extensa por si lo anterior no quedo claro
 Se realizara un formulario web conectado a una base de datos;la mayoria de las pruebas se hicieron con la maquina de ASIR LAMP
